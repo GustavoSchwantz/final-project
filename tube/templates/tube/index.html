@@ -1,0 +1,94 @@
+{% extends "tube/layout.html" %}
+{% load static %}
+
+{% block body %}
+    
+    <div class="row">
+
+        <div class="sidebar col-lg-2 col-md-3">
+
+            <nav class="navbar navbar-light bg-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">TheyTube</a>
+                </div>
+            </nav>
+
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}">Home</a>
+                </li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Trash</a>
+                    </li>
+                {% endif %}    
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Library</a>
+                </li>
+            </ul>
+
+        </div>
+
+        <div class="main col-lg-10 col-md-9">
+            
+            <nav class="navbar navbar-light bg-light">
+                <div class="container-fluid">
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-primary" type="submit">Search</button>
+                    </form>
+                    <ul class="nav">
+                        {% if user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="javascript:void(0);" onclick="upload_video();">Upload Video</a>    
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Notifications</a>    
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'logout' %}">Log Out</a>    
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'login' %}">Log In</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'register' %}">Register</a>
+                            </li>
+                        {% endif %}    
+                    </ul>
+                </div>
+
+            </nav>
+
+            <h1>TODO</h1>
+
+            <div class="modal" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="uploadModalLabel">Send Video</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+                            <form id="upload-form" method="post" enctype="multipart/form-data">
+                                <input id="videoFile" type="file" accept="video/*" name="video"/>
+                                <!--<label id="selectButton" for="videoFile">Select Files</label>-->
+                                <input type="submit" value="Upload File" name="submit" />
+                            </form>           
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+  
+        </div>
+
+    </div>
+ 
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'tube/video.js' %}"></script>
+{% endblock %}
