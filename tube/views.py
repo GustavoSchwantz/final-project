@@ -69,7 +69,7 @@ def upload(request):
 
     print(request.FILES)
 
-    file = request.FILES['video']
+    file = request.FILES['file']
 
     with open('tube/videos/%s' % file.name, 'wb+') as dest:
         for chunk in file.chunks():
