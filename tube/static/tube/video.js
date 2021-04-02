@@ -9,6 +9,8 @@ function upload_video() {
     
     uploadModal.show();
 
+    handle_details(); /*
+
     // Show drop area and upload button and hide details form
     document.querySelector('#drop-area').style.display = 'block';
     document.querySelector('#details').style.display = 'none';
@@ -39,7 +41,7 @@ function upload_video() {
         // We pass to handleFile just one (the only one) video file from files FileList
         handle_video(files[0]);
 
-    }, false);
+    }, false);*/
 }
 
 // Send a video file to the server

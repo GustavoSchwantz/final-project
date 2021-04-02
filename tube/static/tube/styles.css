@@ -1,0 +1,8 @@
+#details input:focus + label { 
+    color: #0077ff;
+}
+
+#details .form-control:focus {
+    border-color: rgb(0, 127, 255);
+    box-shadow: none;
+}
