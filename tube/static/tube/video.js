@@ -71,7 +71,26 @@ function handle_details() {
     document.querySelector('#drop-area').style.display = 'none';
     document.querySelector('#details').style.display = 'block';
 
-    console.log('This is handle_detail.');
+    // Select the details elements and submit button to be used later
+    const title          = document.querySelector('#title-input');
+    const description    = document.querySelector('#description-input');
+    const category       = document.querySelector('#category-select');
+    const visibilityPub  = document.querySelector('#visibility-public');
+    const visibilityPri  = document.querySelector('#visibility-private');
+    const submit         = document.querySelector('#submit-details');
+
+    // Listen for submission of form
+    document.querySelector('#details-form').onsubmit = () => {
+
+        console.log(title.value);
+        console.log(description.value);
+        console.log(category.value);
+        console.log(visibilityPub.value);
+        console.log(visibilityPri.value);
+        
+        // Stop form from submitting
+        return false;
+    }
 }
 
 function preventDefaults(e) {

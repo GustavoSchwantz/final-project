@@ -2,7 +2,7 @@
     color: #0077ff;
 }
 
-#details .form-control:focus {
+#details .form-control:focus, #details .form-select:focus {
     border-color: rgb(0, 127, 255);
     box-shadow: none;
 }
