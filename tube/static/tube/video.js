@@ -9,8 +9,6 @@ function upload_video() {
     
     uploadModal.show();
 
-    handle_details(); /*
-
     // Show drop area and upload button and hide details form
     document.querySelector('#drop-area').style.display = 'block';
     document.querySelector('#details').style.display = 'none';
@@ -41,7 +39,7 @@ function upload_video() {
         // We pass to handleFile just one (the only one) video file from files FileList
         handle_video(files[0]);
 
-    }, false);*/
+    }, false);
 }
 
 // Send a video file to the server
@@ -60,9 +58,9 @@ function handle_video(file) {
     .then(result => {
         // Print result
         console.log(result);
+        
+        handle_details();
     });
-
-    handle_details();
 }
 
 function handle_details() {
@@ -71,13 +69,12 @@ function handle_details() {
     document.querySelector('#drop-area').style.display = 'none';
     document.querySelector('#details').style.display = 'block';
 
-    // Select the details elements and submit button to be used later
+    // Select the details elements to be used later
     const title          = document.querySelector('#title-input');
     const description    = document.querySelector('#description-input');
     const category       = document.querySelector('#category-select');
     const visibilityPub  = document.querySelector('#visibility-public');
     const visibilityPri  = document.querySelector('#visibility-private');
-    const submit         = document.querySelector('#submit-details');
 
     // Listen for submission of form
     document.querySelector('#details-form').onsubmit = () => {
@@ -85,11 +82,11 @@ function handle_details() {
         console.log(title.value);
         console.log(description.value);
         console.log(category.value);
-        console.log(visibilityPub.value);
-        console.log(visibilityPri.value);
+        console.log(visibilityPub.checked);
+        console.log(visibilityPri.checked);
         
         // Stop form from submitting
-        return false;
+        //return false;
     }
 }
 
