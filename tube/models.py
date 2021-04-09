@@ -9,6 +9,7 @@ class Video(models.Model):
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=5000, blank=True)
     upload = models.FileField(upload_to='videos/')
+    thumbnail = models.ImageField(upload_to='images/')
     CATEGORY_CHOICES = [
         ('ED', 'Education'),
         ('MU', 'Music'),
@@ -29,3 +30,7 @@ class Video(models.Model):
         choices=VISIBILITY_CHOICES,
         default='PR',
     )
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="videos")
+    views = models.IntegerField(default=0)
+    timestamp = models.DateTimeField(auto_now_add=True)
