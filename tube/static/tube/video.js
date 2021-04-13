@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     
     console.log('Hello my friend');
+
+    load_videos();
 });
 
 function upload_video() {
@@ -89,6 +91,22 @@ function handle_details() {
         //return false;
     }
 }
+
+// Load a set of videos 
+function load_videos() {
+
+    // Get all videos available and add them to the DOM
+    fetch('/videos')
+    .then(response => response.json())
+    .then(videos => {
+
+        // Print result
+        console.log(videos);
+    });
+}
+
+
+/* Some help functions */
 
 function preventDefaults(e) {
     e.preventDefault();

@@ -34,3 +34,20 @@ class Video(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="videos")
     views = models.IntegerField(default=0)
     timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.id}: {self.title}"
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "description": self.description,
+            "upload": self.upload.url,
+            "thumbnail": self.thumbnail.url,
+            "category": self.category,
+            "visibility": self.visibility,
+            "username": self.user.username,
+            "views": self.views,
+            "timestamp": self.timestamp.strftime("%b %-d %Y, %-I:%M %p")
+        }

@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
-from .models import User
+from .models import User, Video
 
 
 def index(request):
@@ -76,3 +76,18 @@ def upload(request):
             dest.write(chunk)
 
     return JsonResponse({"message": "Video sent successfully."}, status=201)     
+
+
+def videos(request):
+
+    # Get all videos
+    videos = Video.objects.all()
+
+    #print(videos)
+    #print(videos.first().upload.url)
+    #print(videos.first().thumbnail.url)
+
+    # Put videos in reverse chronologial order
+    videos = videos.order_by("-timestamp").all()
+
+    return JsonResponse({"videos": [video.serialize() for video in videos]}, safe=False)
