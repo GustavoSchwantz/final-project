@@ -98,13 +98,48 @@ function load_videos() {
     // Get all videos available and add them to the DOM
     fetch('/videos')
     .then(response => response.json())
-    .then(videos => {
+    .then(videos => { 
 
         // Print result
         console.log(videos);
+
+        add_video();
     });
 }
 
+function add_video() {
+
+    const element = document.createElement('div');
+    element.className = 'col-3';
+    element.append(create_thumbnail('/media/images/museu-6.jpg', 'museu'));
+    element.append(create_title('Museu de Cera Brasil'));
+    element.addEventListener('click', function() {
+        console.log('This div element has been clicked!')
+    });
+    document.querySelector('#video-container').append(element);
+}
+
+function create_thumbnail(src, alt) {
+
+    const element = document.createElement('img');
+    element.src = src;
+    element.className = 'img-thumbnail';
+    element.alt = alt;
+    element.addEventListener('click', function() {
+        console.log('This img element has been clicked!')
+    });
+    return element;
+}
+
+function create_title(title) {
+
+    const element = document.createElement('h6');
+    element.innerHTML = title;
+    element.addEventListener('click', function() {
+        console.log('The element of title has been clicked!')
+    });
+    return element;
+}
 
 /* Some help functions */
 
