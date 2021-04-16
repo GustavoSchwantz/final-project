@@ -109,37 +109,31 @@ function load_videos() {
 
 function add_video() {
 
-    const element = document.createElement('div');
-    element.className = 'col-3';
-    element.append(create_thumbnail('/media/images/museu-6.jpg', 'museu'));
-    element.append(create_title('Museu de Cera Brasil'));
-    element.addEventListener('click', function() {
+    const divElement = document.createElement('div');
+    divElement.className = 'col-4';
+
+    imgElement = create_element('img', 'img-thumbnail', '');
+    imgElement.src = '/media/images/museu-6.jpg';
+
+    divElement.append(imgElement);
+    divElement.append(create_element('p', "title", 'Museu de Cera Brasil: mais uma um meme tipicamente brasleiro.'));
+    divElement.append(create_element('span', 'username', 'gustavoschwantz'));
+    //element.append(create_element('span', '', '313'));
+    divElement.addEventListener('click', function() {
         console.log('This div element has been clicked!')
     });
-    document.querySelector('#video-container').append(element);
+    document.querySelector('#video-container').append(divElement);
 }
 
-function create_thumbnail(src, alt) {
+function create_element(elementName, className, innerHTML) {
 
-    const element = document.createElement('img');
-    element.src = src;
-    element.className = 'img-thumbnail';
-    element.alt = alt;
-    element.addEventListener('click', function() {
-        console.log('This img element has been clicked!')
-    });
+    const element = document.createElement(elementName);
+    element.className = className;
+    element.innerHTML = innerHTML;
+
     return element;
 }
 
-function create_title(title) {
-
-    const element = document.createElement('h6');
-    element.innerHTML = title;
-    element.addEventListener('click', function() {
-        console.log('The element of title has been clicked!')
-    });
-    return element;
-}
 
 /* Some help functions */
 
