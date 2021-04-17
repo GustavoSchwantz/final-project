@@ -108,30 +108,39 @@ function load_videos() {
 }
 
 function add_video() {
+    
+    // Create a div element for the video
+    const element = document.createElement('div');
+    element.className = 'col-3';
 
-    const divElement = document.createElement('div');
-    divElement.className = 'col-4';
+    // The video content is going to be in a card
+    const videoDiv = document.createElement('div');
+    videoDiv.className = 'card border-light';
+    
+    // Create an element for the video image
+    const videoImage = document.createElement('img');
+    videoImage.className = 'card-img-top';
+    videoImage.src = '/media/images/museu-6.jpg';
+    videoImage.alt = 'museu';
+    
+    videoDiv.append(videoImage);
+    
+    // Create a body for the video information
+    const videoInfo = document.createElement('body');
+    videoInfo.className = 'card-body';
+    
+    const title = document.createElement('h6');
+    title.className = 'card-title';
+    title.innerHTML = 'Museu de Cera.';
 
-    imgElement = create_element('img', 'img-thumbnail', '');
-    imgElement.src = '/media/images/museu-6.jpg';
+    videoInfo.append(title);
+    
+    videoDiv.append(videoInfo);
 
-    divElement.append(imgElement);
-    divElement.append(create_element('p', "title", 'Museu de Cera Brasil: mais uma um meme tipicamente brasleiro.'));
-    divElement.append(create_element('span', 'username', 'gustavoschwantz'));
-    //element.append(create_element('span', '', '313'));
-    divElement.addEventListener('click', function() {
-        console.log('This div element has been clicked!')
-    });
-    document.querySelector('#video-container').append(divElement);
-}
-
-function create_element(elementName, className, innerHTML) {
-
-    const element = document.createElement(elementName);
-    element.className = className;
-    element.innerHTML = innerHTML;
-
-    return element;
+    element.append(videoDiv);
+    
+    // Insert the video div into the DOM
+    document.querySelector('#video-container').append(element);
 }
 
 
