@@ -7,14 +7,15 @@
     box-shadow: none;
 }
 
-.title {
+/*.title {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+
     margin-top: 4%;
     font-weight: 500;
 }
 
 .username {
     color: gray;
-}
+}*/

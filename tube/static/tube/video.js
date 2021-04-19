@@ -102,8 +102,11 @@ function load_videos() {
 
         // Print result
         console.log(videos);
-
-        add_video();
+        
+        var i;
+        for (i = 0; i < 20; i++) {
+            add_video();
+        }
     });
 }
 
@@ -129,14 +132,19 @@ function add_video() {
     const videoInfo = document.createElement('body');
     videoInfo.className = 'card-body';
     
+    // Title of the video
     const title = document.createElement('h6');
     title.className = 'card-title';
     title.innerHTML = 'Museu de Cera.';
 
-    videoInfo.append(title);
-    
-    videoDiv.append(videoInfo);
+    // The remaining info
+    const info = document.createElement('p');
+    info.className = 'card-text text-muted';
+    info.innerHTML = `gustavoschwantz - 0 views - Jan 2 2020, 12:00 AM`;
 
+    videoInfo.append(title);
+    videoInfo.append(info);
+    videoDiv.append(videoInfo);
     element.append(videoDiv);
     
     // Insert the video div into the DOM

@@ -9,25 +9,24 @@
 
             <div class="col-lg-2 col-sm-12">
 
-                <nav class="navbar navbar-dark bg-primary">
+                <nav class="navbar sticky-top navbar-light bg-light">
                     <div class="container-fluid">
                         <a class="navbar-brand" href="#">TheyTube</a>
-                    </div>
-                </nav>
-
-                <nav class="nav flex-column">
-                    <a class="nav-link" href="{% url 'index' %}">Home</a>
-                    {% if user.is_authenticated %}
-                        <a class="nav-link" href="#">Trash</a>
-                    {% endif %}    
-                    <a class="nav-link" href="#">Library</a>
+                        <nav class="nav flex-column">
+                            <a class="nav-link" href="{% url 'index' %}">Home</a>
+                            {% if user.is_authenticated %}
+                                <a class="nav-link" href="#">Trash</a>
+                            {% endif %}    
+                            <a class="nav-link" href="#">Library</a>
+                        </nav>
+                    </div>    
                 </nav>
 
             </div>
 
             <div class="col-lg-10 col-sm-12">
                 
-                <nav class="navbar navbar-light bg-light">
+                <nav class="navbar sticky-top navbar-light bg-light">
                     <div class="container-fluid">
                         <form class="d-flex w-50">
                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
