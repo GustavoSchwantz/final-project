@@ -105,12 +105,12 @@ function load_videos() {
         
         var i;
         for (i = 0; i < 20; i++) {
-            add_video();
+            add_video(videos.videos[0]);
         }
     });
 }
 
-function add_video() {
+function add_video(video) {
     
     // Create a div element for the video
     const element = document.createElement('div');
@@ -123,8 +123,8 @@ function add_video() {
     // Create an element for the video image
     const videoImage = document.createElement('img');
     videoImage.className = 'card-img-top';
-    videoImage.src = '/media/images/museu-6.jpg';
-    videoImage.alt = 'museu';
+    videoImage.src = video.thumbnail;
+    videoImage.alt = video.thumbnail;
     
     videoDiv.append(videoImage);
     
@@ -135,12 +135,13 @@ function add_video() {
     // Title of the video
     const title = document.createElement('h6');
     title.className = 'card-title';
-    title.innerHTML = 'Museu de Cera.';
+    title.innerHTML = video.title;
 
     // The remaining info
     const info = document.createElement('p');
     info.className = 'card-text text-muted';
-    info.innerHTML = `gustavoschwantz - 0 views - Jan 2 2020, 12:00 AM`;
+    info.innerHTML = `${video.username} - ${video.views} views - ${video.timestamp}
+                        <a href="watch/${video.id}" class="stretched-link" style="font-size:0px;">Go somewhere</a>`;
 
     videoInfo.append(title);
     videoInfo.append(info);

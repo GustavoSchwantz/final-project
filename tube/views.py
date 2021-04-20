@@ -91,3 +91,8 @@ def videos(request):
     videos = videos.order_by("-timestamp").all()
 
     return JsonResponse({"videos": [video.serialize() for video in videos]}, safe=False)
+
+
+def watch(request, id):
+
+    return JsonResponse({"message": f"You are watching the video {id}"}, status=201)
