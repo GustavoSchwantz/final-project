@@ -95,4 +95,4 @@ def videos(request):
 
 def watch(request, id):
 
-    return JsonResponse({"message": f"You are watching the video {id}"}, status=201)
+    return render(request, "tube/watch.html")
