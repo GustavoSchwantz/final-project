@@ -7,9 +7,28 @@
 
         <div class="row">
 
-            <video controls>
-                <source src="media/videos/project_0.mp4" type="video/mp4">
-            </video>
+            <div class="col-12">
+
+                <nav class="navbar navbar-light bg-light">
+                    <div class="container-fluid">
+                        <a class="navbar-brand" href="#">TheyTube</a>
+                    </div>    
+                </nav>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-12 text-center">
+                
+                <video controls>
+                    <source src="/media/videos/movie.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+
+            </div>
 
         </div>
         
@@ -17,6 +36,3 @@
 
 {% endblock %}
 
-{% block script %}
-    <!--script src="{% static 'tube/video.js' %}"></script-->
-{% endblock %}
