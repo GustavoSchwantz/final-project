@@ -8,19 +8,6 @@
 }
 
 video {
-    width: 60% !important;
+    width: 100% !important;
     height: auto !important;
 }
-
-/*.title {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-
-    margin-top: 4%;
-    font-weight: 500;
-}
-
-.username {
-    color: gray;
-}*/
