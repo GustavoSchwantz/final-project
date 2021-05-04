@@ -93,6 +93,9 @@ def videos(request):
     return JsonResponse({"videos": [video.serialize() for video in videos]}, safe=False)
 
 
-def watch(request, id):
-
-    return render(request, "tube/watch.html")
+def watch(request, video_id):
+    video = Video.objects.get(id=video_id)
+    return render(request, "tube/watch.html", {
+        "video": video
+    })
+    

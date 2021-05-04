@@ -8,5 +8,5 @@ urlpatterns = [
     path("register", views.register, name="register"),
     path("upload", views.upload, name="upload"),
     path("videos", views.videos, name="videos"),
-    path("watch/<int:id>", views.watch, name="watch"),
+    path("watch/<int:video_id>", views.watch, name="watch"),
 ]
