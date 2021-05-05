@@ -37,7 +37,7 @@
             <div class="col-8">
                 
                 <video controls>
-                    <source src="/media/videos/movie.mp4" type="video/mp4">
+                    <source src="/media/{{video.video}}" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
 
@@ -49,9 +49,9 @@
 
             <div class="col-4">
                 
-                <h5>Bear in the river</h5>
-                <h6 class="text-muted">313 views - Jan 2 2020, 12:00 AM</h6>
-                <p class="text-start">Uploaded by <a href="#" class="text-decoration-none">gustavoschwantz</a></p>
+                <h5>{{video.title}}</h5>
+                <h6 class="text-muted">{{video.views}} views - {{video.timestamp}}</h6>
+                <p class="text-start">Uploaded by <a href="#" class="text-decoration-none">{{video.user.username}}</a></p>
 
             </div>
 
@@ -61,20 +61,47 @@
                 {% if not user.is_authenticated %} disabled {% endif %}
                 >
                     <i class="bi bi-hand-thumbs-up me-1"></i>
-                    <span class="badge bg-secondary">42</span>
+                    <span class="badge bg-secondary">{{video.likes}}</span>
                 </button>
                 <button type="button" class="btn btn-primary btn-lg"
                 {% if not user.is_authenticated %} disabled {% endif %}
                 >
                     <i class="bi bi-hand-thumbs-down me-1"></i>
-                    <span class="badge bg-secondary">-10</span>
+                    <span class="badge bg-secondary">{{video.unlikes}}</span>
                 </button>
 
             </div>
 
         </div>
+
+        <div class="row justify-content-center">
+
+            <div class="col-8">
+
+                <form id="new-comment-form">
+                    <textarea class="form-control" id="new-comment"></textarea>
+                    <input class="mt-1 btn btn-primary" id="comment-submit" type="submit" value="Comment">
+                </form>
+
+            </div>
+        
+        </div>
+
+        <div class="row justify-content-center">
+
+            <div class="col-8 list-group" id="comments-container">
+            </div>
+        
+        </div>
         
     </div>    
 
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'tube/video2.js' %}"></script>
+    <script>
+        load_comments(`{{video.id}}`);
+    </script>
 {% endblock %}
 

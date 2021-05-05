@@ -99,3 +99,15 @@ def watch(request, video_id):
         "video": video
     })
     
+
+def comments(request, video_id):
+
+    video = Video.objects.get(id=video_id)
+
+    # Get all comments from a video
+    comments = video.comments.all()
+
+    # Put comments in reverse chronologial order
+    comments = comments.order_by("-timestamp").all()    
+
+    return JsonResponse([comment.serialize() for comment in comments], safe=False)
