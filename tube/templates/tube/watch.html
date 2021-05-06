@@ -34,7 +34,7 @@
 
         <div class="row justify-content-center">
 
-            <div class="col-8">
+            <div class="col-lg-8 col-md-10 col-sm-12">
                 
                 <video controls>
                     <source src="/media/{{video.video}}" type="video/mp4">
@@ -46,37 +46,40 @@
         </div>
 
         <div class="row justify-content-center">
-
-            <div class="col-4">
-                
-                <h5>{{video.title}}</h5>
-                <h6 class="text-muted">{{video.views}} views - {{video.timestamp}}</h6>
-                <p class="text-start">Uploaded by <a href="#" class="text-decoration-none">{{video.user.username}}</a></p>
-
+            <div class="col-lg-8 col-md-10 col-sm-12 d-flex justify-content-between">
+                <div>
+                    <h4>{{video.title}}</h4>
+                    <h6 class="text-muted">{{video.views}} views - {{video.timestamp}}</h6>
+                    Uploaded by <a href="#" class="text-decoration-none">{{video.user.username}}</a>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-primary btn-lg" 
+                    {% if not user.is_authenticated %} disabled {% endif %}
+                    >
+                        <i class="bi bi-hand-thumbs-up me-1"></i>
+                        <span class="badge bg-secondary">{{video.likes}}</span>
+                    </button>
+                    <button type="button" class="btn btn-primary btn-lg"
+                    {% if not user.is_authenticated %} disabled {% endif %}
+                    >
+                        <i class="bi bi-hand-thumbs-down me-1"></i>
+                        <span class="badge bg-secondary">{{video.unlikes}}</span>
+                    </button>
+                </div>
             </div>
+        </div>
 
-            <div class="col-4" style="text-align: right;">
-
-                <button type="button" class="btn btn-primary btn-lg" 
-                {% if not user.is_authenticated %} disabled {% endif %}
-                >
-                    <i class="bi bi-hand-thumbs-up me-1"></i>
-                    <span class="badge bg-secondary">{{video.likes}}</span>
-                </button>
-                <button type="button" class="btn btn-primary btn-lg"
-                {% if not user.is_authenticated %} disabled {% endif %}
-                >
-                    <i class="bi bi-hand-thumbs-down me-1"></i>
-                    <span class="badge bg-secondary">{{video.unlikes}}</span>
-                </button>
-
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10 col-sm-12">
+                <p>{{video.description}}</p>
             </div>
-
         </div>
 
         <div class="row justify-content-center">
 
-            <div class="col-8">
+            <div class="col-lg-8 col-md-10 col-sm-12">
+
+                <h5>Discussion:</h5>
 
                 <form id="new-comment-form">
                     <textarea class="form-control" id="new-comment"></textarea>
@@ -89,10 +92,10 @@
 
         <div class="row justify-content-center">
 
-            <div class="col-8 list-group" id="comments-container">
+            <div class="col-lg-8 col-md-10 col-sm-12 list-group" id="comments-container">
             </div>
         
-        </div>
+        </div-->
         
     </div>    
 
