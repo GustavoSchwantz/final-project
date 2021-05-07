@@ -53,13 +53,13 @@
                     Uploaded by <a href="#" class="text-decoration-none">{{video.user.username}}</a>
                 </div>
                 <div>
-                    <button type="button" class="btn btn-primary btn-lg" 
+                    <button type="button" class="btn btn-primary btn-lg" id="like"
                     {% if not user.is_authenticated %} disabled {% endif %}
                     >
                         <i class="bi bi-hand-thumbs-up me-1"></i>
                         <span class="badge bg-secondary">{{video.likes}}</span>
                     </button>
-                    <button type="button" class="btn btn-primary btn-lg"
+                    <button type="button" class="btn btn-primary btn-lg" id="unlike"
                     {% if not user.is_authenticated %} disabled {% endif %}
                     >
                         <i class="bi bi-hand-thumbs-down me-1"></i>

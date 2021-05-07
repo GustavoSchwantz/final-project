@@ -36,6 +36,7 @@ class Video(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     likes = models.IntegerField(default=0)
     unlikes = models.IntegerField(default=0)
+    togglers = models.ManyToManyField(User, blank=True, related_name="toggled")
 
     def __str__(self):
         return f"{self.id}: {self.title}"

@@ -3,6 +3,25 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Video Loaded!');
 });
 
+function like_video(id) {
+    
+    fetch('/toggle/' + id, {
+        method: 'PUT',
+        body: JSON.stringify({
+            like: true
+        })
+    })
+    .then(response => response.json())
+    .then(result => {
+        // Print result
+        console.log(result);
+    });  
+}
+
+function unlike_video() {
+    console.log('unlike');
+}
+
 function load_comments(id) {
 
     fetch('/comments/' + id)

@@ -1,9 +1,11 @@
+import json
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 
 from .models import User, Video
 
@@ -111,3 +113,34 @@ def comments(request, video_id):
     comments = comments.order_by("-timestamp").all()    
 
     return JsonResponse([comment.serialize() for comment in comments], safe=False)
+
+
+@csrf_exempt
+@login_required
+def toggle(request, video_id):
+    
+    # Just expect PUT requests
+    if request.method == "PUT":
+
+        # Query for requested video
+        try:
+            video = Video.objects.get(pk=video_id)
+        except Video.DoesNotExist:
+            return JsonResponse({"error": "Video not found."}, status=404)
+
+        if video.togglers.objects.filter(id=request.user.id).exists():
+            return JsonResponse({"error": "User already rate this video."}, status=404)
+        else:
+            data = json.loads(request.body)
+            if data.get("like"):
+                video.likes = video.likes + 1 
+            else:
+                video.unlikes = video.unlikes - 1
+            video.save()
+            return JsonResponse({"message": "Video rated successfully."}, status=201)
+    
+    # Toggle must be via PUT
+    else:
+        return JsonResponse({
+            "error": "PUT request required."
+        }, status=400)
