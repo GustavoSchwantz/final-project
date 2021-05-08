@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Video Loaded!');
 });
 
+// When an user likes a video with id id 
 function like_video(id) {
     
     fetch('/toggle/' + id, {
@@ -15,11 +16,45 @@ function like_video(id) {
     .then(result => {
         // Print result
         console.log(result);
-    });  
+        
+        // Get like and unlike buttons
+        likeButton = document.querySelector('#like_button');
+        unlikeButton = document.querySelector('#unlike_button');
+        
+        // After user rated the video, like and unlike buttons must be disable
+        likeButton.disabled = true;
+        unlikeButton.disabled = true;
+        
+        // Update number of likes in the DOOM without refresh the page
+        likeButton.querySelector('span').innerHTML = result.likes;
+    });
 }
 
-function unlike_video() {
-    console.log('unlike');
+// When an user unlikes a video with id id 
+function unlike_video(id) {
+
+    fetch('/toggle/' + id, {
+        method: 'PUT',
+        body: JSON.stringify({
+            like: false
+        })
+    })
+    .then(response => response.json())
+    .then(result => {
+        // Print result
+        console.log(result);
+        
+        // Get like and unlike buttons
+        likeButton = document.querySelector('#like_button');
+        unlikeButton = document.querySelector('#unlike_button');
+        
+        // After user rated the video, like and unlike buttons must be disable
+        likeButton.disabled = true;
+        unlikeButton.disabled = true;
+        
+        // Update number of unlikes in the DOOM without refresh the page
+        unlikeButton.querySelector('span').innerHTML = result.unlikes;
+    });
 }
 
 function load_comments(id) {

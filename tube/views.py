@@ -96,9 +96,12 @@ def videos(request):
 
 
 def watch(request, video_id):
+
+    # Get the video with id video_id
     video = Video.objects.get(id=video_id)
     return render(request, "tube/watch.html", {
-        "video": video
+        "video": video,
+        "rated": video.togglers.filter(id=request.user.id).exists() # Just for disable like and unlike buttons in case user already rate this video
     })
     
 
@@ -127,17 +130,23 @@ def toggle(request, video_id):
             video = Video.objects.get(pk=video_id)
         except Video.DoesNotExist:
             return JsonResponse({"error": "Video not found."}, status=404)
-
-        if video.togglers.objects.filter(id=request.user.id).exists():
-            return JsonResponse({"error": "User already rate this video."}, status=404)
+        
+        # The user can not rate the same video more than once
+        if video.togglers.filter(id=request.user.id).exists():
+            return JsonResponse({"error": "User already rate this video."}, status=201)
+        # Rate and add that user to the video togglers's list    
         else:
             data = json.loads(request.body)
             if data.get("like"):
                 video.likes = video.likes + 1 
             else:
-                video.unlikes = video.unlikes - 1
+                video.unlikes = video.unlikes + 1
+            video.togglers.add(request.user)    
             video.save()
-            return JsonResponse({"message": "Video rated successfully."}, status=201)
+            return JsonResponse({
+                "likes": video.likes, # Return number of likes and unlikes so it is not need refresh the page
+                "unlikes": video.unlikes,
+                "message": "Video rated successfully."}, status=201)
     
     # Toggle must be via PUT
     else:
