@@ -105,6 +105,26 @@ def watch(request, video_id):
     })
     
 
+@csrf_exempt
+@login_required
+def comment(request):
+
+    # Writing a new comment must be via POST
+    if request.method != "POST":
+        return JsonResponse({"error": "POST request required."}, status=400)
+
+    # Get content of comment
+    data = json.loads(request.body)
+    content = data.get("comment", "")
+
+    # Create a comment
+    comment = Comment(
+        content=content,
+    )
+    comment.save()
+
+    return JsonResponse({"message": "Comment sent successfully."}, status=201)
+
 def comments(request, video_id):
 
     video = Video.objects.get(id=video_id)
