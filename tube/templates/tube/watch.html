@@ -49,7 +49,7 @@
             <div class="col-lg-8 col-md-10 col-sm-12 d-flex justify-content-between">
                 <div>
                     <h4>{{video.title}}</h4>
-                    <h6 class="text-muted">{{video.views}} views - {{video.timestamp}}</h6>
+                    <h6 class="text-muted">{{video.views|add:"-1"}} views - {{video.timestamp}}</h6>
                     Uploaded by <a href="#" class="text-decoration-none">{{video.user.username}}</a>
                 </div>
                 <div>
@@ -97,7 +97,7 @@
             <div class="col-lg-8 col-md-10 col-sm-12 list-group" id="comments-container">
             </div>
         
-        </div-->
+        </div>
         
     </div>    
 
@@ -106,7 +106,13 @@
 {% block script %}
     <script src="{% static 'tube/video2.js' %}"></script>
     <script>
-        load_comments(`{{video.id}}`);
+        document.addEventListener('DOMContentLoaded', function() {
+    
+            console.log('Video Loaded!');
+
+            new_comment(`{{video.id}}`);
+            load_comments(`{{video.id}}`);
+        });
     </script>
 {% endblock %}
 

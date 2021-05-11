@@ -1,10 +1,3 @@
-document.addEventListener('DOMContentLoaded', function() {
-    
-    console.log('Video Loaded!');
-
-    new_comment();
-});
-
 // When an user likes a video with id id 
 function like_video(id) {
     
@@ -60,7 +53,7 @@ function unlike_video(id) {
 }
 
 // Write a new comment for users who are signed in 
-function new_comment() {
+function new_comment(id) {
 
     // Select the submit button and textarea to be used later
     const submit    = document.querySelector('#comment-submit');
@@ -86,7 +79,7 @@ function new_comment() {
         const comment = newComment.value;
         
         // Send a POST request to the '/comment' route carrying the comment content
-        fetch('/comment', {
+        fetch('/comment/' + id, {
             method: 'POST',
             body: JSON.stringify({comment: comment})
         })

@@ -9,7 +9,7 @@ urlpatterns = [
     path("upload", views.upload, name="upload"),
     path("videos", views.videos, name="videos"),
     path("watch/<int:video_id>", views.watch, name="watch"),
-    path("comment", views.comment, name="comment"),
+    path("comment/<int:video_id>", views.comment, name="comment"),
     path("comments/<int:video_id>", views.comments, name="comments"),
     path("toggle/<int:video_id>", views.toggle, name="toggle"),
 ]

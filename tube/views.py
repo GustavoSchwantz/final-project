@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 
-from .models import User, Video
+from .models import Comment, User, Video
 
 
 def index(request):
@@ -99,6 +99,8 @@ def watch(request, video_id):
 
     # Get the video with id video_id
     video = Video.objects.get(id=video_id)
+    video.views = video.views + 1
+    video.save()
     return render(request, "tube/watch.html", {
         "video": video,
         "rated": video.togglers.filter(id=request.user.id).exists() # Just for disable like and unlike buttons in case user already rate this video
@@ -107,7 +109,7 @@ def watch(request, video_id):
 
 @csrf_exempt
 @login_required
-def comment(request):
+def comment(request, video_id):
 
     # Writing a new comment must be via POST
     if request.method != "POST":
@@ -116,10 +118,15 @@ def comment(request):
     # Get content of comment
     data = json.loads(request.body)
     content = data.get("comment", "")
+    
+    # Get the video that the comment is made
+    video = Video.objects.get(id=video_id)
 
     # Create a comment
     comment = Comment(
         content=content,
+        video=video,
+        user=request.user
     )
     comment.save()
 
