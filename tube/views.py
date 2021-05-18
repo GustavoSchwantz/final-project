@@ -180,3 +180,12 @@ def toggle(request, video_id):
         return JsonResponse({
             "error": "PUT request required."
         }, status=400)
+
+
+@csrf_exempt
+def search(request):
+
+    print(request)
+
+    return JsonResponse({"message": "Search query sent successfully."}, status=201)
+

@@ -12,4 +12,5 @@ urlpatterns = [
     path("comment/<int:video_id>", views.comment, name="comment"),
     path("comments/<int:video_id>", views.comments, name="comments"),
     path("toggle/<int:video_id>", views.toggle, name="toggle"),
+    path("search", views.search, name="search"),
 ]

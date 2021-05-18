@@ -1,13 +1,53 @@
-document.addEventListener('DOMContentLoaded', function() {
-    
-    console.log('Hello my friend');
+function search() {
 
-    load_videos();
-});
+    // Select the submit button and input to be used later
+    const submit = document.querySelector('#search-submit');
+    const newSearch = document.querySelector('#search-input');
+
+    // Disable submit button by default:
+    submit.disabled = true;
+
+    // Listen for input to be typed into the input field
+    newSearch.onkeyup = () => {
+        if (newSearch.value.length > 0) {
+            submit.disabled = false;
+        }
+        else {
+            submit.disabled = true;
+        }
+    }
+
+    // Listen for submission of form
+    document.querySelector('#search-form').onsubmit = () => {
+
+        // Find the search query the user just submitted
+        const search = newSearch.value;
+
+        // Send a POST request to the '/search' route carrying the search query
+        fetch('/search', {
+            method: 'POST',
+            body: JSON.stringify({search: search})
+        })
+        .then(response => response.json())
+        .then(result => {
+            // Print result
+            console.log(result);
+        });
+        
+        // Clear out search input and disable submit button:
+        newSearch.value = '';
+        submit.disabled = true;
+        
+        // Stop form from submitting
+        return false;
+    }
+}
 
 function upload_video() {
 
     var uploadModal = new bootstrap.Modal(document.getElementById('uploadModal'));
+
+    console.log(uploadModal._config);
     
     uploadModal.show();
 
@@ -61,7 +101,7 @@ function handle_video(file) {
         // Print result
         console.log(result);
         
-        handle_details();
+        //handle_details();
     });
 }
 
