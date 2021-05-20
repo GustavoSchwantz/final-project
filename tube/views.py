@@ -1,6 +1,6 @@
 import json
 from django.contrib.auth import authenticate, login, logout
-from django.db import IntegrityError
+from django.db import IntegrityError, models
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
@@ -8,6 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 
 from .models import Comment, User, Video
+from . import util
 
 
 def index(request):
@@ -69,13 +70,17 @@ def register(request):
 @csrf_exempt
 def upload(request):
 
-    print(request.FILES)
-
     file = request.FILES['file']
+    
+    # Take a frame from the uploaded video to be used as a default image
+    util.get_frame(file.temporary_file_path(), 'Project 1')
 
-    with open('tube/videos/%s' % file.name, 'wb+') as dest:
-        for chunk in file.chunks():
-            dest.write(chunk)
+    video = Video(
+        title="Project 1",
+        video=file,
+        user=request.user
+    )
+    video.save()
 
     return JsonResponse({"message": "Video sent successfully."}, status=201)     
 

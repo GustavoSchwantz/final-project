@@ -9,7 +9,7 @@ class Video(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField(max_length=5000, blank=True)
     video = models.FileField(upload_to='videos/')
-    image = models.ImageField(upload_to='images/')
+    image = models.ImageField(upload_to='images/', blank=True)
     CATEGORY_CHOICES = [
         ('ED', 'Education'),
         ('MU', 'Music'),
