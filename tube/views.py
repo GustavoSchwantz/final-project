@@ -73,7 +73,7 @@ def upload(request):
     file = request.FILES['file']
     
     # Take a frame from the uploaded video to be used as a default image
-    #util.get_frame(file.temporary_file_path(), file.name)
+    util.get_frame(file.temporary_file_path(), file.name)
     
     # Extract the duration from uploaded video
     duration = util.get_duration(file.temporary_file_path())
@@ -83,11 +83,12 @@ def upload(request):
     print(file.name)
 
     video = Video(
-        title="Project 1",
+        title=file.name,
         video=file,
+        duration=duration,
         user=request.user
     )
-    #video.save()
+    video.save()
 
     return JsonResponse({"message": "Video sent successfully."}, status=201)     
 
