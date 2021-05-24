@@ -14,14 +14,18 @@ def get_frame(path, title):
     # Reading from frame
     ret, frame = cam.read()
 
-    if ret:
+    print(type(frame))
+
+    """if ret:
 
         # Writing the extracted image
         cv2.imwrite('media/images/' + title + '.jpg', frame)
 
     # Release all space and windows once done
     cam.release()
-    cv2.destroyAllWindows()
+    cv2.destroyAllWindows()"""
+
+    return frame
 
 
 def get_duration(path):

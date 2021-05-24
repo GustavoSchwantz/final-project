@@ -46,8 +46,6 @@ function search() {
 function upload_video() {
 
     var uploadModal = new bootstrap.Modal(document.getElementById('uploadModal'));
-
-    console.log(uploadModal._config);
     
     uploadModal.show();
 
@@ -101,7 +99,9 @@ function handle_video(file) {
         // Print result
         console.log(result);
         
-        //handle_details();
+        // Hide drop area and upload button and shows details form
+        document.querySelector('#drop-area').style.display = 'none';
+        document.querySelector('#details').style.display = 'block';
     });
 }
 
@@ -112,7 +112,7 @@ function handle_details() {
     document.querySelector('#details').style.display = 'block';
 
     // Select the details elements to be used later
-    const title          = document.querySelector('#title-input');
+    /*const title          = document.querySelector('#title-input');
     const description    = document.querySelector('#description-input');
     const category       = document.querySelector('#category-select');
     const visibilityPub  = document.querySelector('#visibility-public');
@@ -129,7 +129,7 @@ function handle_details() {
         
         // Stop form from submitting
         //return false;
-    }
+    }*/
 }
 
 // Load a set of videos 

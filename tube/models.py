@@ -3,7 +3,7 @@ from django.db import models
 
 
 class User(AbstractUser):
-    pass
+    draugth = models.ManyToManyField('Video', related_name="uploader", blank=True)
 
 class Video(models.Model):
     title = models.CharField(max_length=100)

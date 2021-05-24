@@ -6,13 +6,26 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+from django.core.files.base import ContentFile
+from django.core.files import File
+from django import forms
 
 from .models import Comment, User, Video
 from . import util
 
 
+class DetailsForm(forms.ModelForm):
+    class Meta:
+        model = Video
+        fields = ['title', 'description', 'image', 
+                'category', 'visibility']
+
+
+@csrf_exempt
 def index(request):
-    return render(request, "tube/index.html")
+    return render(request, "tube/index.html", { 
+        "detailsForm": DetailsForm()
+    })
 
 
 def login_view(request):
@@ -73,24 +86,27 @@ def upload(request):
     file = request.FILES['file']
     
     # Take a frame from the uploaded video to be used as a default image
-    util.get_frame(file.temporary_file_path(), file.name)
+    img = util.get_frame(file.temporary_file_path(), file.name)
     
     # Extract the duration from uploaded video
     duration = util.get_duration(file.temporary_file_path())
-    
-    print(type(duration))
-    print(duration)
-    print(file.name)
+
+    print(type(file))
+    print(type(File(img)))
 
     video = Video(
-        title=file.name,
+        title=file.name, # Just because this is obligatory field. It will be changed by user later anyway
         video=file,
+        image=File(img),
         duration=duration,
         user=request.user
     )
     video.save()
+    
+    # Associate the uploaded video with current user, so when details form is submited, the respective video is known
+    #request.user.draugth.add(video)
 
-    return JsonResponse({"message": "Video sent successfully."}, status=201)     
+    return JsonResponse({"message": "Video sent and save successfully."}, status=201)     
 
 
 def videos(request):
