@@ -1,11 +1,13 @@
 # Importing some necessary libraries
 import cv2, datetime, os
 
+from PIL import Image
+
 
 def get_frame(path, title):
 
     """
-    Take a frame from a video and save as an image in media/images.
+    Take a frame from a video and return it as a PIL image.
     """
     
     # Read the video from specified path
@@ -14,18 +16,13 @@ def get_frame(path, title):
     # Reading from frame
     ret, frame = cam.read()
 
-    print(type(frame))
-
-    """if ret:
-
-        # Writing the extracted image
-        cv2.imwrite('media/images/' + title + '.jpg', frame)
+    img = Image.fromarray(frame)
 
     # Release all space and windows once done
     cam.release()
-    cv2.destroyAllWindows()"""
+    cv2.destroyAllWindows()
 
-    return frame
+    return img
 
 
 def get_duration(path):

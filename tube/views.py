@@ -8,7 +8,9 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.core.files.base import ContentFile
 from django.core.files import File
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django import forms
+from io import BytesIO
 
 from .models import Comment, User, Video
 from . import util
@@ -92,15 +94,19 @@ def upload(request):
     duration = util.get_duration(file.temporary_file_path())
 
     print(type(file))
-    print(type(File(img)))
+    print(type(img))
+
+    blob = BytesIO()
+    img.save(blob, 'PNG')
+
 
     video = Video(
         title=file.name, # Just because this is obligatory field. It will be changed by user later anyway
         video=file,
-        image=File(img),
         duration=duration,
         user=request.user
     )
+    video.image.save(file.name + '.png', File(blob))
     video.save()
     
     # Associate the uploaded video with current user, so when details form is submited, the respective video is known
