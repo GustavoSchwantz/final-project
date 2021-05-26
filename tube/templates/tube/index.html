@@ -91,7 +91,10 @@
                         </form>
                     </div>       
                     <div id="details">
-                        {{ detailsForm }}
+                        <form action="{% url 'send' %}" method="post" enctype='multipart/form-data'>
+                            {{ detailsForm }}
+                            <input type="submit">
+                        </form>
                     </div> 
                 </div>
             </div>

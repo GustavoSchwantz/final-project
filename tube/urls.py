@@ -7,6 +7,7 @@ urlpatterns = [
     path("logout", views.logout_view, name="logout"),
     path("register", views.register, name="register"),
     path("upload", views.upload, name="upload"),
+    path("send", views.send, name="send"),
     path("videos", views.videos, name="videos"),
     path("watch/<int:video_id>", views.watch, name="watch"),
     path("comment/<int:video_id>", views.comment, name="comment"),

@@ -110,9 +110,29 @@ def upload(request):
     video.save()
     
     # Associate the uploaded video with current user, so when details form is submited, the respective video is known
-    #request.user.draugth.add(video)
+    request.user.draugth.add(video)
 
     return JsonResponse({"message": "Video sent and save successfully."}, status=201)     
+
+
+@csrf_exempt
+def send(request):
+
+    # Check if method is POST
+    if request.method == "POST":
+        
+        # Get the video related to the form
+        draugth = request.user.draugth.first()
+        
+        # Get the form information and update the model
+        df = DetailsForm(request.POST, request.FILES, instance=draugth)
+        df.save()
+        
+        # Once the information is saved, the video does not need be associate with current user 
+        request.user.draugth.remove(draugth)
+
+    # Redirect user to home page
+    return HttpResponseRedirect(reverse("index"))    
 
 
 def videos(request):
