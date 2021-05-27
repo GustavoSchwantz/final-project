@@ -20,7 +20,16 @@ class DetailsForm(forms.ModelForm):
     class Meta:
         model = Video
         fields = ['title', 'description', 'image', 
-                'category', 'visibility']
+                'category', 'visibility'] 
+
+    def __init__(self, *args, **kwargs):
+        super(DetailsForm, self).__init__(*args, **kwargs)
+        self.fields['title'].widget.attrs.update({'class': 'form-control'})      
+        self.fields['description'].widget.attrs.update({'class': 'form-control', 
+        'placeholder': 'Tell about your video to the audience'})
+        self.fields['image'].widget.attrs.update({'class': 'form-control'})
+        self.fields['category'].widget.attrs.update({'class': 'form-select'})
+        self.fields['visibility'].widget.attrs.update({'class': 'form-select'})          
 
 
 @csrf_exempt
@@ -93,12 +102,8 @@ def upload(request):
     # Extract the duration from uploaded video
     duration = util.get_duration(file.temporary_file_path())
 
-    print(type(file))
-    print(type(img))
-
     blob = BytesIO()
     img.save(blob, 'PNG')
-
 
     video = Video(
         title=file.name, # Just because this is obligatory field. It will be changed by user later anyway
