@@ -15,8 +15,12 @@ def get_frame(path, title):
 
     # Reading from frame
     ret, frame = cam.read()
-
+    
+    # The numpy arrays is transformed in a PIL image
     img = Image.fromarray(frame)
+
+    # Resize image all of them have equal dimensions 
+    img = img.resize((320, 240))
 
     # Release all space and windows once done
     cam.release()

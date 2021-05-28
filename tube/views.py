@@ -145,10 +145,6 @@ def videos(request):
     # Get all videos
     videos = Video.objects.all()
 
-    #print(videos)
-    #print(videos.first().upload.url)
-    #print(videos.first().thumbnail.url)
-
     # Put videos in reverse chronologial order
     videos = videos.order_by("-timestamp").all()
 

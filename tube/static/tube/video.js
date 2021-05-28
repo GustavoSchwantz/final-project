@@ -105,33 +105,6 @@ function handle_video(file) {
     });
 }
 
-function handle_details() {
-
-    // Hide drop area and upload button and shows details form
-    document.querySelector('#drop-area').style.display = 'none';
-    document.querySelector('#details').style.display = 'block';
-
-    // Select the details elements to be used later
-    /*const title          = document.querySelector('#title-input');
-    const description    = document.querySelector('#description-input');
-    const category       = document.querySelector('#category-select');
-    const visibilityPub  = document.querySelector('#visibility-public');
-    const visibilityPri  = document.querySelector('#visibility-private');
-
-    // Listen for submission of form
-    document.querySelector('#details-form').onsubmit = () => {
-
-        console.log(title.value);
-        console.log(description.value);
-        console.log(category.value);
-        console.log(visibilityPub.checked);
-        console.log(visibilityPri.checked);
-        
-        // Stop form from submitting
-        //return false;
-    }*/
-}
-
 // Load a set of videos 
 function load_videos() {
 
@@ -143,10 +116,7 @@ function load_videos() {
         // Print result
         console.log(videos);
         
-        var i;
-        for (i = 0; i < 20; i++) {
-            add_video(videos.videos[0]);
-        }
+        //videos.videos.forEach(add_video);
     });
 }
 
@@ -163,8 +133,8 @@ function add_video(video) {
     // Create an element for the video image
     const videoImage = document.createElement('img');
     videoImage.className = 'card-img-top';
-    videoImage.src = video.thumbnail;
-    videoImage.alt = video.thumbnail;
+    videoImage.src = video.image;
+    videoImage.alt = video.image;
     
     videoDiv.append(videoImage);
     
@@ -178,7 +148,7 @@ function add_video(video) {
     title.innerHTML = video.title;
 
     // The remaining info
-    const info = document.createElement('p');
+    const info = document.createElement('small');
     info.className = 'card-text text-muted';
     info.innerHTML = `${video.username} - ${video.views} views - ${video.timestamp}
                         <a href="watch/${video.id}" class="stretched-link" style="font-size:0px;">Go somewhere</a>`;
