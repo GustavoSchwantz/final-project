@@ -116,7 +116,7 @@ function load_videos() {
         // Print result
         console.log(videos);
         
-        //videos.videos.forEach(add_video);
+        videos.videos.forEach(add_video);
     });
 }
 
@@ -124,7 +124,7 @@ function add_video(video) {
     
     // Create a div element for the video
     const element = document.createElement('div');
-    element.className = 'col-3';
+    element.className = 'col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3';
 
     // The video content is going to be in a card
     const videoDiv = document.createElement('div');
