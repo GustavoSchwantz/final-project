@@ -45,7 +45,7 @@
                     </div>
                 </nav>
 
-                <!--div class="container">
+                <div class="container">
                     <div class="row">
                         <p>
                             <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
@@ -53,12 +53,86 @@
                             </button>
                         </p>
                         <div class="collapse" id="collapseFilter">
-                            <div class="card card-body">
-                                Some placeholder content for the collapse component.
+                            <div class="card card-body d-flex flex-row justify-content-between">
+                                <div>
+                                    <h6>Upload date</h6>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="uploadDate" id="uploadDate1" value="hour" checked>
+                                        <label class="form-check-label" for="uploadDate1">
+                                            Last hour
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="uploadDate" id="uploadDate2" value="day">
+                                        <label class="form-check-label" for="uploadDate2">
+                                            Today
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="uploadDate" id="uploadDate3" value="week">
+                                        <label class="form-check-label" for="uploadDate3">
+                                            This week
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="uploadDate" id="uploadDate4" value="month">
+                                        <label class="form-check-label" for="uploadDate4">
+                                            This month
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="uploadDate" id="uploadDate5" value="year">
+                                        <label class="form-check-label" for="uploadDate5">
+                                            This year
+                                        </label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h6>Duration</h6>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="duration" id="duration1">
+                                        <label class="form-check-label" for="duration1">
+                                            Less than 4 minutes
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="duration" id="duration2" checked>
+                                        <label class="form-check-label" for="duration2">
+                                            4 to 20 minutes
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="duration" id="duration3">
+                                        <label class="form-check-label" for="duration3">
+                                            With more than 20 minutes
+                                        </label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h6>Order by</h6>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="orderBy" id="orderBy1" checked>
+                                        <label class="form-check-label" for="orderBy1">
+                                            Upload date
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="orderBy" id="orderBy2">
+                                        <label class="form-check-label" for="orderBy2">
+                                            Views
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="orderBy" id="orderBy3">
+                                        <label class="form-check-label" for="orderBy3">
+                                            Classification
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div-->
+                </div>
 
                 <div class="container">
                     <div class="row" id="video-container">

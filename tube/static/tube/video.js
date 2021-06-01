@@ -4,6 +4,9 @@ function search() {
     const submit = document.querySelector('#search-submit');
     const newSearch = document.querySelector('#search-input');
 
+    var getSelectedValue = document.querySelector('input[name="uploadDate"]:checked');
+    console.log(getSelectedValue.value);
+
     // Disable submit button by default:
     submit.disabled = true;
 
