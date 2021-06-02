@@ -240,8 +240,9 @@ def toggle(request, video_id):
 
 @csrf_exempt
 def search(request):
-
-    print(request)
+    
+    data = json.loads(request.body)
+    print(data)
 
     return JsonResponse({"message": "Search query sent successfully."}, status=201)
 

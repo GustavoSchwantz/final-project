@@ -4,9 +4,6 @@ function search() {
     const submit = document.querySelector('#search-submit');
     const newSearch = document.querySelector('#search-input');
 
-    var getSelectedValue = document.querySelector('input[name="uploadDate"]:checked');
-    console.log(getSelectedValue.value);
-
     // Disable submit button by default:
     submit.disabled = true;
 
@@ -23,13 +20,26 @@ function search() {
     // Listen for submission of form
     document.querySelector('#search-form').onsubmit = () => {
 
+        // Show filter options after typing a search
+        document.querySelector('#filter-button').style.display = 'block';
+        
+        // Filter options go back default value when doing a new search
+        document.querySelector("#uploadDate0").checked = true;
+        document.querySelector("#duration0").checked = true;
+        document.querySelector("#orderBy1").checked = true;
+
         // Find the search query the user just submitted
         const search = newSearch.value;
 
         // Send a POST request to the '/search' route carrying the search query
         fetch('/search', {
             method: 'POST',
-            body: JSON.stringify({search: search})
+            body: JSON.stringify({
+                search: search,
+                uploadDate: 'any',
+                duration: 'any',
+                orderBy: 'date'
+            })
         })
         .then(response => response.json())
         .then(result => {
@@ -37,13 +47,34 @@ function search() {
             console.log(result);
         });
         
-        // Clear out search input and disable submit button:
-        newSearch.value = '';
-        submit.disabled = true;
-        
         // Stop form from submitting
         return false;
     }
+    
+    // Listen for some change in the filter buttons
+    document.querySelector('#filter').addEventListener('change', () => {
+        
+        // Find the new configuration of the filter buttons
+        const valueUpload = document.querySelector('input[name="uploadDate"]:checked');
+        const valueDuration = document.querySelector('input[name="duration"]:checked');
+        const valueOrder = document.querySelector('input[name="orderBy"]:checked');
+
+        // Send a POST request to the '/search' route carrying the search query and filter options
+        fetch('/search', {
+            method: 'POST',
+            body: JSON.stringify({
+                search: newSearch.value,
+                uploadDate: valueUpload.value,
+                duration: valueDuration.value,
+                orderBy: valueOrder.value
+            })
+        })
+        .then(response => response.json())
+        .then(result => {
+            // Print result
+            console.log(result);
+        });
+    });
 }
 
 function upload_video() {
