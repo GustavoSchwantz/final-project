@@ -45,6 +45,10 @@ function search() {
         .then(result => {
             // Print result
             console.log(result);
+
+            document.querySelector('#video-container').innerHTML = '';
+
+            result.videos.forEach(add_video);
         });
         
         // Stop form from submitting
@@ -73,6 +77,10 @@ function search() {
         .then(result => {
             // Print result
             console.log(result);
+
+            document.querySelector('#video-container').innerHTML = '';
+
+            result.videos.forEach(add_video);
         });
     });
 }

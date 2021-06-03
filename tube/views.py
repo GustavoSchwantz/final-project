@@ -11,6 +11,7 @@ from django.core.files import File
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django import forms
 from io import BytesIO
+import datetime
 
 from .models import Comment, User, Video
 from . import util
@@ -240,9 +241,24 @@ def toggle(request, video_id):
 
 @csrf_exempt
 def search(request):
+
+    # Making a search must be via POST
+    if request.method != "POST":
+        return JsonResponse({"error": "POST request required."}, status=400)
+
+    data = json.loads(request.body)    
     
-    data = json.loads(request.body)
+    # Get all videos
+    videos = Video.objects.all()
+
+    videos = videos.filter(title__icontains=data.get("search"))
+
     print(data)
 
-    return JsonResponse({"message": "Search query sent successfully."}, status=201)
+    #if data.get("uploadDate") == "hour":
+
+    videos = videos.filter(timestamp__date=datetime.now() - datetime.hour)
+
+
+    return JsonResponse({"videos": [video.serialize() for video in videos]}, safe=False)
 
