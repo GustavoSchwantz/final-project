@@ -11,7 +11,7 @@ from django.core.files import File
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django import forms
 from io import BytesIO
-import datetime
+from datetime import datetime
 
 from .models import Comment, User, Video
 from . import util
@@ -253,12 +253,33 @@ def search(request):
 
     videos = videos.filter(title__icontains=data.get("search"))
 
-    print(data)
-
-    #if data.get("uploadDate") == "hour":
-
-    videos = videos.filter(timestamp__date=datetime.now() - datetime.hour)
-
+    today = datetime.today()
+    
+    # Filter videos based on upload date
+    if data.get("uploadDate") == "hour":
+        videos = videos.filter(timestamp__year=today.year,
+                               timestamp__month=today.month,
+                               timestamp__day=today.day,
+                               timestamp__hour=today.hour)
+    elif data.get("uploadDate") == "day": 
+        videos = videos.filter(timestamp__year=today.year,
+                               timestamp__month=today.month,
+                               timestamp__day=today.day)   
+    elif data.get("uploadDate") == "month": 
+        videos = videos.filter(timestamp__year=today.year,
+                               timestamp__month=today.month)       
+    elif data.get("uploadDate") == "year": 
+        videos = videos.filter(timestamp__year=today.year)    
+    else:
+        pass
+    
+    # Order videos by some criteria
+    if data.get("orderBy") == "views":
+        videos = videos.order_by("-views").all()
+    elif data.get("orderBy") == "classification": 
+        videos = videos.order_by("-likes").all()
+    else:
+        videos = videos.order_by("-timestamp").all() 
 
     return JsonResponse({"videos": [video.serialize() for video in videos]}, safe=False)
 
