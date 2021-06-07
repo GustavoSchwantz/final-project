@@ -11,7 +11,7 @@ from django.core.files import File
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django import forms
 from io import BytesIO
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from .models import Comment, User, Video
 from . import util
@@ -250,7 +250,8 @@ def search(request):
     
     # Get all videos
     videos = Video.objects.all()
-
+    
+    # Filter videos based on search query
     videos = videos.filter(title__icontains=data.get("search"))
 
     today = datetime.today()
@@ -272,14 +273,24 @@ def search(request):
         videos = videos.filter(timestamp__year=today.year)    
     else:
         pass
-    
+
+    # Filter videos based on duration
+    if data.get("duration") == "lt4":
+        videos = videos.filter(duration__lte=timedelta(minutes=4))
+    elif data.get("duration") == "4to20": 
+        videos = videos.filter(duration__gte=timedelta(minutes=4), duration__lte=timedelta(minutes=20))
+    elif data.get("duration") == "mt20":    
+        videos = videos.filter(duration__gte=timedelta(minutes=20))
+    else:
+        pass
+        
     # Order videos by some criteria
     if data.get("orderBy") == "views":
         videos = videos.order_by("-views").all()
     elif data.get("orderBy") == "classification": 
         videos = videos.order_by("-likes").all()
     else:
-        videos = videos.order_by("-timestamp").all() 
+        videos = videos.order_by("-timestamp").all()
 
     return JsonResponse({"videos": [video.serialize() for video in videos]}, safe=False)
 
