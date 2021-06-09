@@ -1,8 +1,8 @@
-# final-project
+# TheyTube Project
 
 ## Distinctiveness and Complexity
 
-I believe my project satisfies the distinctiveness and complexity requirements since it handles video files, which is something that we did not work on in the previous projects. 
+I believe my project satisfies the distinctiveness and complexity requirements because: it is a video sharing website, which is something distinct from search, wiki, e-commerce, email and social network; in all previous projects we worked mainly with text, and images were optional. Here, images and video files were used, things that were not seen and are more complex to work with; it is possible to upload a file by choosing from the computer's file system or dragging the video to a specific area, which is something we did not learn during the course; Python is being used to manipulate images and videos; many Django features not seen during the course neither implemented in previous projects were used here like ModelForm, FileField, DurationField, ImageField and media manipulation; it was used Bootstrap elements not seen during the course like Modals, Cards, Collapse, List Group; a Django’s form was styled with Bootstrap; searches are being done not just based on some string but also based in date and time, duration of the video and number of likes.     
 
 ## What is contained in each file
 
